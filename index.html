@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
-        /* --- قائمة الصور --- */
+        /* --- قائمة الصور (تمت مراجعة الأسماء بدقة) --- */
         :root {
             --img-cover: url('2_20260114_124959_0001.png');
             --img-meaning: url('3_20260114_124959_0002.png');
@@ -24,12 +24,12 @@
 
         body { font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; background-color: #fdf6e3; text-align: center; padding-bottom: 50px; }
         .image-container { position: relative; width: 100%; max-width: 500px; margin: 0 auto; }
-        .bg-img { width: 100%; display: block; border-radius: 0 0 15px 15px; }
+        .bg-img { width: 100%; display: block; border-radius: 0 0 15px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
         .nav-buttons { display: flex; justify-content: space-between; max-width: 500px; margin: 10px auto; padding: 0 10px; }
         .nav-btn { background: #8b5e3c; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
 
-        /* --- 1. الهوية --- */
+        /* --- 1. الهوية (تعديل الأماكن للأسفل) --- */
         .id-input {
             position: absolute; background: transparent; border: none;
             font-family: 'Tajawal'; font-size: 16px; color: #5d4037;
@@ -40,10 +40,10 @@
         #input-age  { top: 75%; } 
         #input-goal { top: 90%; }
 
-        /* --- 2. الجدول (الشبكة الخفية - يسار) --- */
+        /* --- 2. الجدول (الشبكة المزاحة لليسار) --- */
         .table-overlay {
             position: absolute;
-            top: 22%; left: 0; width: 88%; /* لكي لا نغطي الأرقام على اليمين */
+            top: 22%; left: 0; width: 88%; /* عرض أقل لتجنب تغطية الأرقام */
             height: 65%;
             display: grid;
             grid-template-rows: repeat(15, 1fr); 
@@ -51,18 +51,18 @@
         }
         .table-row {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* 7 أعمدة للرموز فقط */
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* 7 أعمدة تفاعلية */
             width: 100%; height: 100%;
         }
         .cell-click {
             cursor: pointer; border-radius: 50%; background: transparent;
         }
         .cell-click.done {
-            background-color: rgba(139, 195, 74, 0.5);
+            background-color: rgba(139, 195, 74, 0.5); /* أخضر شفاف */
             box-shadow: 0 0 8px #8bc34a;
         }
 
-        /* --- المربعات التفاعلية --- */
+        /* --- المربعات التفاعلية (صح) --- */
         .checkbox-zone {
             position: absolute; width: 40px; height: 40px;
             border-radius: 5px; cursor: pointer;
@@ -70,19 +70,34 @@
         }
         .checkbox-zone.checked::after { content: '✔'; }
         
-        /* --- أزرار الصوت --- */
+        /* --- أزرار الصوت المخفية --- */
         .audio-btn-hidden {
             position: absolute; width: 70px; height: 70px;
             background: transparent; border-radius: 50%; cursor: pointer; z-index: 20;
         }
 
-        /* --- البستان والنجوم --- */
-        .fruit-zone { position: absolute; width: 15%; height: 12%; border-radius: 50%; cursor: pointer; z-index: 10; }
-        .star-zone { position: absolute; width: 15%; height: 10%; cursor: pointer; }
+        /* --- مناطق اللمس (فواكه ونجوم) --- */
+        .fruit-zone { position: absolute; width: 13%; height: 10%; border-radius: 50%; cursor: pointer; z-index: 10; }
+        .star-zone { position: absolute; width: 15%; height: 10%; cursor: pointer; z-index: 10; }
 
-        /* --- Popup --- */
+        /* --- النوافذ المنبثقة (Popup) --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: #fff8e1; padding: 20px; border-radius: 15px; width: 80%; max-width: 350px; text-align: center; border: 4px solid #8b5e3c; }
+        .modal-content {
+            background: #e4c49f; border: 6px solid #8d6e63; /* ستايل خشبي */
+            padding: 20px; border-radius: 15px; width: 85%; max-width: 400px;
+            text-align: center; position: relative;
+            background-image: linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px);
+            background-size: 100% 20px;
+        }
+        .close-modal {
+            position: absolute; top: -15px; right: -10px;
+            background: #d32f2f; color: white; width: 30px; height: 30px;
+            border-radius: 50%; font-size: 20px; line-height: 30px;
+            cursor: pointer; border: 2px solid white;
+        }
+        .popup-icon { font-size: 40px; display: block; margin-bottom: 10px; }
+        .popup-title { color: #5d4037; margin: 0 0 10px 0; font-size: 1.3rem; font-weight: bold; border-bottom: 2px dashed #8d6e63; padding-bottom: 5px; display: inline-block;}
+        .popup-text { color: #3e2723; font-weight: bold; font-size: 1rem; line-height: 1.6; white-space: pre-line; }
         
         .section { display: none; animation: fadeIn 0.5s; }
         .section.active { display: block; }
@@ -138,11 +153,11 @@
     <div id="page-6" class="section">
         <div class="image-container">
             <div class="bg-img" style="height: 700px; background: var(--img-treasures) center/cover no-repeat;"></div>
-            <div class="star-zone" style="top:33%; left:6%;" onclick="showPopup('الكنز الأول', 'الصوم يقوي الإرادة والصبر.')"></div>
-            <div class="star-zone" style="top:37%; left:28%;" onclick="showPopup('الكنز الثاني', 'الصوم يريح المعدة وينقي الجسم.')"></div>
-            <div class="star-zone" style="top:29%; left:45%;" onclick="showPopup('الكنز الثالث', 'دعوة الصائم لا ترد عند فطره.')"></div>
-            <div class="star-zone" style="top:37%; left:66%;" onclick="showPopup('الكنز الرابع', 'باب الريان في الجنة خاص للصائمين.')"></div>
-             <div class="star-zone" style="top:29%; left:82%;" onclick="showPopup('الكنز الخامس', 'من صام يوماً في سبيل الله باعد الله وجهه عن النار سبعين خريفاً.')"></div>
+            <div class="star-zone" style="top:33%; left:6%;" onclick="showPopup('⭐ تقوية الإرادة', 'الصيام يعلمني الصبر والتحكم في رغباتي،\nفأنا قوي وأستطيع الانتظار حتى أذان المغرب.')"></div>
+            <div class="star-zone" style="top:37%; left:28%;" onclick="showPopup('⭐ صحة الجسم', 'المعدة ترتاح قليلاً لتصبح أقوى،\nوجسمي يتخلص من السموم ليصبح أكثر نشاطاً.')"></div>
+            <div class="star-zone" style="top:29%; left:45%;" onclick="showPopup('⭐ الشعور بالآخرين', 'عندما أجوع قليلاً، أتذكر الفقراء والمحتاجين\nوأشكر الله على نعمة الطعام وأساعدهم.')"></div>
+            <div class="star-zone" style="top:37%; left:66%;" onclick="showPopup('⭐ تقوى الله', 'أنا أصوم لأن الله يحب الصائمين،\nولأفوز بالجائزة الكبرى: باب الريان في الجنة.')"></div>
+            <div class="star-zone" style="top:29%; left:82%;" onclick="showPopup('⭐ تطهير النفس', 'وتزكيتها من الأخلاق السيئة\nوتعويدها للأخلاق الكريمة.')"></div>
         </div>
         <p style="color:#8b5e3c;">اضغط على النجوم لتكتشف الكنوز! ⭐</p>
     </div>
@@ -150,13 +165,13 @@
     <div id="page-7" class="section">
         <div class="image-container">
             <div class="bg-img" style="height: 700px; background: var(--img-garden) center/cover no-repeat;"></div>
-            <div class="fruit-zone" style="top:35%; left:42%;" onclick="showPopup('🍎 الدعاء', 'ارفع يديك وادعُ لنفسك ولوالديك.')"></div>
-            <div class="fruit-zone" style="top:38%; left:60%;" onclick="showPopup('🥭 إفطار صائم', 'شارك تمرة أو ماء ولك مثل أجره.')"></div>
-            <div class="fruit-zone" style="top:40%; left:20%;" onclick="showPopup('🍊 التراويح', 'صلاة التراويح تغفر الذنوب.')"></div>
-            <div class="fruit-zone" style="top:38%; right:15%;" onclick="showPopup('🌸 القرآن', 'اجعل لك ورداً يومياً ولو صفحة.')"></div>
-            <div class="fruit-zone" style="top:58%; left:25%;" onclick="showPopup('🍌 الأخلاق', 'الصائم لا يغضب ولا يؤذي أحداً.')"></div>
-            <div class="fruit-zone" style="top:52%; right:22%;" onclick="showPopup('🎁 بر الوالدين', 'اتصل بجدك وجدتك وسلم عليهم.')"></div>
-            <div class="fruit-zone" style="top:56%; left:45%;" onclick="showPopup('🍒 الصدقة', 'تبسمك في وجه أخيك صدقة.')"></div>
+            <div class="fruit-zone" style="top:35%; left:42%;" onclick="showPopup('🍎 الدعاء المستجاب', 'قال تعالى: {وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ}\n\nفكرة: ارفع يديك وادعُ لنفسك ولوالديك قبل الإفطار.')"></div>
+            <div class="fruit-zone" style="top:38%; left:60%;" onclick="showPopup('🥭 إفطار صائم', 'قال ﷺ: (مَنْ فَطَّرَ صَائِمًا كَانَ لَهُ مِثْلُ أَجْرِهِ).\n\nفكرة: شارك تمرة أو كوب ماء مع غيرك عند الأذان!')"></div>
+            <div class="fruit-zone" style="top:40%; left:20%;" onclick="showPopup('🍊 صلاة التراويح', 'قال ﷺ: (مَنْ قَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ).')"></div>
+            <div class="fruit-zone" style="top:38%; right:15%;" onclick="showPopup('🌸 القرآن صديقي', 'قال تعالى: (شَهْرُ رَمَضَانَ الَّذِي أُنزِلَ فِيهِ الْقُرْآنُ..)\n\nفكرة: اجعل لك ورداً يومياً ولو صفحة واحدة.')"></div>
+            <div class="fruit-zone" style="top:58%; left:25%;" onclick="showPopup('🍌 أخلاقي جميلة', 'الصائم لا يغضب ولا يؤذي أحداً.\nقال ﷺ: (أقربكم مني مجلساً يوم القيامة أحاسنكم أخلاقاً).')"></div>
+            <div class="fruit-zone" style="top:52%; right:22%;" onclick="showPopup('🎁 بر الوالدين وصلة الرحم', 'فكرة: اتصل بجدك وجدتك، وسلم على أقاربك، فهذا يرضي الله ويزيد في عمرك.')"></div>
+            <div class="fruit-zone" style="top:56%; left:45%;" onclick="showPopup('🍒 الجود والكرم', 'كان النبي ﷺ أجود الناس في رمضان.\n\nفكرة: تبسمك في وجه أخيك صدقة.')"></div>
         </div>
     </div>
 
@@ -179,9 +194,10 @@
     </div>
 
     <div id="modal" class="modal" onclick="document.getElementById('modal').style.display='none'">
-        <div class="modal-content">
-            <h2 id="modal-title" style="color:#8b5e3c;"></h2>
-            <p id="modal-text" style="font-size:1.2rem;"></p>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="close-modal" onclick="document.getElementById('modal').style.display='none'">×</div>
+            <h2 id="modal-title" class="popup-title"></h2>
+            <div id="modal-text" class="popup-text"></div>
         </div>
     </div>
 
@@ -216,7 +232,7 @@
             document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
         }
 
-        // --- الجدول (تم التعديل) ---
+        // --- الجدول (الخلايا) ---
         let currentTableStart = 1;
         function toggleTable() {
             const bg = document.getElementById('table-bg');
@@ -251,273 +267,7 @@
             }
         }
 
-        function saveData() {
-            localStorage.setItem('myName', document.getElementById('input-name').value);
-            localStorage.setItem('myAge', document.getElementById('input-age').value);
-            localStorage.setItem('myGoal', document.getElementById('input-goal').value);
-        }
-        window.onload = function() {
-            if(localStorage.getItem('myName')) document.getElementById('input-name').value = localStorage.getItem('myName');
-            if(localStorage.getItem('myAge')) document.getElementById('input-age').value = localStorage.getItem('myAge');
-            if(localStorage.getItem('myGoal')) document.getElementById('input-goal').value = localStorage.getItem('myGoal');
-            renderTableOverlay();
-        };
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>كتيبي الرمضاني</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-
-        /* --- قائمة الصور --- */
-        :root {
-            --img-cover: url('2_20260114_124959_0001.png');
-            --img-meaning: url('3_20260114_124959_0002.png');
-            --img-ethics: url('4_20260114_124959_0003.png');
-            --img-challenge: url('5_20260114_124959_0004.png');
-            --img-table1: url('6_20260114_124959_0005.png'); 
-            --img-table2: url('7_20260114_124959_0006.png');
-            --img-treasures: url('8_20260114_124959_0007.png');
-            --img-garden: url('14_20260114_124959_0013.png');
-            --img-qadr1: url('22_20260114_125000_0021.png');
-            --img-qadr2: url('23_20260114_125000_0022.png');
-            --img-eid: url('24_20260114_125000_0023.png');
-        }
-
-        body { font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; background-color: #fdf6e3; text-align: center; padding-bottom: 50px; }
-        .image-container { position: relative; width: 100%; max-width: 500px; margin: 0 auto; }
-        .bg-img { width: 100%; display: block; border-radius: 0 0 15px 15px; }
-        
-        .nav-buttons { display: flex; justify-content: space-between; max-width: 500px; margin: 10px auto; padding: 0 10px; }
-        .nav-btn { background: #8b5e3c; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-
-        /* --- 1. الهوية --- */
-        .id-input {
-            position: absolute; background: transparent; border: none;
-            font-family: 'Tajawal'; font-size: 16px; color: #5d4037;
-            text-align: center; width: 45%; height: 30px;
-            left: 28%; z-index: 100;
-        }
-        #input-name { top: 60%; } 
-        #input-age  { top: 75%; } 
-        #input-goal { top: 90%; }
-
-        /* --- 2. الجدول (الشبكة الخفية - يسار) --- */
-        .table-overlay {
-            position: absolute;
-            top: 22%; left: 0; width: 88%; /* لكي لا نغطي الأرقام على اليمين */
-            height: 65%;
-            display: grid;
-            grid-template-rows: repeat(15, 1fr); 
-            padding-right: 2%; box-sizing: border-box;
-        }
-        .table-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* 7 أعمدة للرموز فقط */
-            width: 100%; height: 100%;
-        }
-        .cell-click {
-            cursor: pointer; border-radius: 50%; background: transparent;
-        }
-        .cell-click.done {
-            background-color: rgba(139, 195, 74, 0.5);
-            box-shadow: 0 0 8px #8bc34a;
-        }
-
-        /* --- المربعات التفاعلية --- */
-        .checkbox-zone {
-            position: absolute; width: 40px; height: 40px;
-            border-radius: 5px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; font-size: 30px; color: #4caf50;
-        }
-        .checkbox-zone.checked::after { content: '✔'; }
-        
-        /* --- أزرار الصوت --- */
-        .audio-btn-hidden {
-            position: absolute; width: 70px; height: 70px;
-            background: transparent; border-radius: 50%; cursor: pointer; z-index: 20;
-        }
-
-        /* --- البستان والنجوم --- */
-        .fruit-zone { position: absolute; width: 15%; height: 12%; border-radius: 50%; cursor: pointer; z-index: 10; }
-        .star-zone { position: absolute; width: 15%; height: 10%; cursor: pointer; }
-
-        /* --- Popup --- */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: #fff8e1; padding: 20px; border-radius: 15px; width: 80%; max-width: 350px; text-align: center; border: 4px solid #8b5e3c; }
-        
-        .section { display: none; animation: fadeIn 0.5s; }
-        .section.active { display: block; }
-        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-    </style>
-</head>
-<body>
-
-    <div class="nav-buttons">
-        <button class="nav-btn" onclick="prevPage()">السابق ➡️</button>
-        <span id="page-num" style="align-self:center; font-weight:bold; color:#8b5e3c;">1 / 10</span>
-        <button class="nav-btn" onclick="nextPage()">⬅️ التالي</button>
-    </div>
-
-    <div id="page-1" class="section active">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-cover) center/cover no-repeat;"></div>
-            <input type="text" id="input-name" class="id-input" placeholder="الاسم" oninput="saveData()">
-            <input type="text" id="input-age" class="id-input" placeholder="العمر" oninput="saveData()">
-            <input type="text" id="input-goal" class="id-input" placeholder="الهدف" oninput="saveData()">
-        </div>
-    </div>
-
-    <div id="page-2" class="section"><div class="image-container"><div class="bg-img" style="height: 700px; background: var(--img-meaning) center/cover no-repeat;"></div></div></div>
-    
-    <div id="page-3" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-ethics) center/cover no-repeat;"></div>
-            <div class="checkbox-zone" style="top:41%; right:47%;" onclick="this.classList.toggle('checked')"></div>
-        </div>
-    </div>
-
-    <div id="page-4" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-challenge) center/cover no-repeat;"></div>
-            <div class="checkbox-zone" style="top:32%; left:48%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="checkbox-zone" style="top:40%; left:48%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="checkbox-zone" style="top:59%; left:40%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="checkbox-zone" style="top:66%; left:40%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="checkbox-zone" style="bottom:5%; left:20%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="checkbox-zone" style="bottom:5%; left:45%;" onclick="this.classList.toggle('checked')"></div>
-        </div>
-    </div>
-
-    <div id="page-5" class="section">
-        <button class="nav-btn" style="margin:5px;" onclick="toggleTable()">تبديل الجدول (1-15 ↔ 16-30)</button>
-        <div class="image-container">
-            <div id="table-bg" class="bg-img" style="height: 600px; background: var(--img-table1) center/contain no-repeat;"></div>
-            <div id="table-overlay-grid" class="table-overlay"></div>
-        </div>
-    </div>
-
-    <div id="page-6" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-treasures) center/cover no-repeat;"></div>
-            <div class="star-zone" style="top:33%; left:6%;" onclick="showPopup('الكنز الأول', 'الصوم يقوي الإرادة والصبر.')"></div>
-            <div class="star-zone" style="top:37%; left:28%;" onclick="showPopup('الكنز الثاني', 'الصوم يريح المعدة وينقي الجسم.')"></div>
-            <div class="star-zone" style="top:29%; left:45%;" onclick="showPopup('الكنز الثالث', 'دعوة الصائم لا ترد عند فطره.')"></div>
-            <div class="star-zone" style="top:37%; left:66%;" onclick="showPopup('الكنز الرابع', 'باب الريان في الجنة خاص للصائمين.')"></div>
-             <div class="star-zone" style="top:29%; left:82%;" onclick="showPopup('الكنز الخامس', 'من صام يوماً في سبيل الله باعد الله وجهه عن النار سبعين خريفاً.')"></div>
-        </div>
-        <p style="color:#8b5e3c;">اضغط على النجوم لتكتشف الكنوز! ⭐</p>
-    </div>
-
-    <div id="page-7" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-garden) center/cover no-repeat;"></div>
-            <div class="fruit-zone" style="top:35%; left:42%;" onclick="showPopup('🍎 الدعاء', 'ارفع يديك وادعُ لنفسك ولوالديك.')"></div>
-            <div class="fruit-zone" style="top:38%; left:60%;" onclick="showPopup('🥭 إفطار صائم', 'شارك تمرة أو ماء ولك مثل أجره.')"></div>
-            <div class="fruit-zone" style="top:40%; left:20%;" onclick="showPopup('🍊 التراويح', 'صلاة التراويح تغفر الذنوب.')"></div>
-            <div class="fruit-zone" style="top:38%; right:15%;" onclick="showPopup('🌸 القرآن', 'اجعل لك ورداً يومياً ولو صفحة.')"></div>
-            <div class="fruit-zone" style="top:58%; left:25%;" onclick="showPopup('🍌 الأخلاق', 'الصائم لا يغضب ولا يؤذي أحداً.')"></div>
-            <div class="fruit-zone" style="top:52%; right:22%;" onclick="showPopup('🎁 بر الوالدين', 'اتصل بجدك وجدتك وسلم عليهم.')"></div>
-            <div class="fruit-zone" style="top:56%; left:45%;" onclick="showPopup('🍒 الصدقة', 'تبسمك في وجه أخيك صدقة.')"></div>
-        </div>
-    </div>
-
-    <div id="page-8" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-qadr1) center/cover no-repeat;"></div>
-            <div class="audio-btn-hidden" style="bottom:22%; right:12%;" onclick="toggleAudio('audio-qadr')"></div>
-        </div>
-        <audio id="audio-qadr" src="https://server10.mp3quran.net/minsh_mlm/097.mp3"></audio>
-    </div>
-
-    <div id="page-9" class="section"><div class="image-container"><div class="bg-img" style="height: 700px; background: var(--img-qadr2) center/cover no-repeat;"></div></div></div>
-
-    <div id="page-10" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-eid) center/cover no-repeat;"></div>
-            <div class="audio-btn-hidden" style="bottom:27%; left:12%; width:80px; height:80px;" onclick="toggleAudio('audio-eid')"></div>
-        </div>
-        <audio id="audio-eid" src="https://b.top4top.io/m_2658546241.mp3"></audio>
-    </div>
-
-    <div id="modal" class="modal" onclick="document.getElementById('modal').style.display='none'">
-        <div class="modal-content">
-            <h2 id="modal-title" style="color:#8b5e3c;"></h2>
-            <p id="modal-text" style="font-size:1.2rem;"></p>
-        </div>
-    </div>
-
-    <script>
-        let currentPage = 1; const totalPages = 10;
-        function showPage(num) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById('page-' + num).classList.add('active');
-            document.getElementById('page-num').innerText = num + " / " + totalPages;
-            stopAllAudio();
-            window.scrollTo(0,0);
-        }
-        function nextPage() { if(currentPage < totalPages) { currentPage++; showPage(currentPage); } }
-        function prevPage() { if(currentPage > 1) { currentPage--; showPage(currentPage); } }
-
-        function showPopup(title, text) {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-text').innerText = text;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function toggleAudio(id) {
-            const audio = document.getElementById(id);
-            if (audio.paused) {
-                stopAllAudio();
-                audio.play();
-            } else {
-                audio.pause();
-            }
-        }
-        function stopAllAudio() {
-            document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
-        }
-
-        // --- الجدول (تم التعديل) ---
-        let currentTableStart = 1;
-        function toggleTable() {
-            const bg = document.getElementById('table-bg');
-            if(currentTableStart === 1) {
-                bg.style.backgroundImage = "var(--img-table2)";
-                currentTableStart = 16;
-            } else {
-                bg.style.backgroundImage = "var(--img-table1)";
-                currentTableStart = 1;
-            }
-            renderTableOverlay();
-        }
-
-        function renderTableOverlay() {
-            const container = document.getElementById('table-overlay-grid');
-            container.innerHTML = '';
-            for(let i=0; i<15; i++) {
-                const rowDiv = document.createElement('div');
-                rowDiv.className = 'table-row';
-                for(let j=0; j<7; j++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell-click';
-                    const key = `day-${currentTableStart+i}-col-${j}`;
-                    if(localStorage.getItem(key) === 'true') cell.classList.add('done');
-                    cell.onclick = function() {
-                        cell.classList.toggle('done');
-                        localStorage.setItem(key, cell.classList.contains('done'));
-                    };
-                    rowDiv.appendChild(cell);
-                }
-                container.appendChild(rowDiv);
-            }
-        }
-
+        // حفظ الهوية
         function saveData() {
             localStorage.setItem('myName', document.getElementById('input-name').value);
             localStorage.setItem('myAge', document.getElementById('input-age').value);
