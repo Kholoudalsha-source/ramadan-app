@@ -7,185 +7,241 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
-        /* --- قائمة الصور --- */
         :root {
-            /* 1. الغلاف */
+            /* تأكدي من الأسماء هنا لاحقاً */
             --img-welcome: url('Cover.png');
-            
-            /* 2. الهوية */
             --img-id: url('2_20260114_124959_0001.png');
-
-            /* 3. معنى الصيام */
             --img-meaning: url('3_20260114_124959_0002.png');
-
-            /* 4. أخلاق الصائم */
             --img-ethics: url('4_20260114_124959_0003.png');
-
-            /* 5. تحدي الصائم */
             --img-challenge: url('5_20260114_124959_0004.png');
-
-            /* 6. الجداول */
             --img-table1: url('6_20260114_124959_0005.png'); 
             --img-table2: url('7_20260114_124959_0006.png');
-
-            /* 7. كنوز رمضان */
             --img-treasures: url('8_20260114_124959_0007.png');
-
-            /* 8. بستان الحسنات */
             --img-garden: url('14_20260114_124959_0013.png');
-
-            /* 9. خير من ألف شهر */
             --img-qadr1: url('22_20260114_125000_0021.png');
-
-            /* 10. ليلة القدر */
             --img-qadr2: url('23_20260114_125000_0022.png');
-
-            /* 11. العيد */
             --img-eid: url('24_20260114_125000_0023.png');
         }
 
-        body { font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; background-color: #fdf6e3; text-align: center; padding-bottom: 60px; user-select: none; -webkit-user-select: none; }
-        .image-container { position: relative; width: 100%; max-width: 500px; margin: 0 auto; }
-        .bg-img { width: 100%; display: block; border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        body { font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; background-color: #fdf6e3; text-align: center; padding-bottom: 80px; -webkit-tap-highlight-color: transparent; }
         
-        /* أزرار التنقل */
-        .nav-buttons { display: flex; justify-content: space-between; max-width: 500px; margin: 10px auto; padding: 0 10px; position: relative; z-index: 1000; }
-        .nav-btn { background: #8b5e3c; color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .nav-btn:active { transform: scale(0.95); }
+        .image-container { 
+            position: relative; width: 100%; max-width: 500px; margin: 0 auto; 
+            min-height: 600px; background-color: #eee; /* لون مؤقت لو الصورة خربانة */
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .bg-img { width: 100%; display: block; border-radius: 0 0 15px 15px; min-height: 600px; }
+        
+        /* أزرار التنقل - حجم أكبر ومكان ثابت */
+        .nav-buttons { 
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 500px; margin: 15px auto; padding: 0 15px; 
+            position: relative; z-index: 9999; /* فوق كل شيء */
+        }
+        .nav-btn { 
+            background: #8b5e3c; color: white; border: none; padding: 15px 30px; 
+            border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 18px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: transform 0.1s;
+        }
+        .nav-btn:active { transform: scale(0.95); background: #6d4c41; }
 
-        /* --- 2. الهوية --- */
-        .id-input {
-            position: absolute; background: transparent; border: none;
-            font-family: 'Tajawal'; font-size: 18px; color: #5d4037; font-weight: bold;
-            text-align: center; width: 45%; height: 35px;
-            left: 28%; z-index: 100;
-        }
-        #input-name { top: 60%; } 
-        #input-age  { top: 75%; } 
-        #input-goal { top: 90%; }
+        /* العناصر التفاعلية */
+        .id-input { position: absolute; background: transparent; border: none; font-family: 'Tajawal'; font-size: 18px; color: #5d4037; text-align: center; width: 45%; height: 35px; left: 28%; z-index: 100; font-weight: bold;}
+        #input-name { top: 60%; } #input-age { top: 75%; } #input-goal { top: 90%; }
 
-        /* --- 3. معنى الصيام (مربعات) --- */
-        .read-check {
-            position: absolute; width: 40px; height: 40px;
-            border: 2px dashed #8b5e3c; border-radius: 8px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 28px; color: green; background: rgba(255,255,255,0.4);
-        }
-        .read-check.checked { border-style: solid; background: #fff; border-color: green; }
-        .read-check.checked::after { content: '✔'; }
+        .read-check, .quiz-check { position: absolute; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 30px; color: green; background: rgba(255,255,255,0.3); border-radius: 8px; width: 45px; height: 45px; z-index: 50; }
+        .read-check.checked, .quiz-check.checked { background: #fff; border: 2px solid green; }
+        .read-check.checked::after, .quiz-check.checked::after { content: '✔'; }
 
-        /* --- 5. تحدي الصائم --- */
-        .quiz-check {
-            position: absolute; width: 45px; height: 45px;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 35px; color: green; border-radius: 5px;
-        }
-        .quiz-check.checked::after { content: '✔'; }
-
-        /* --- 6. الجدول --- */
-        .table-overlay {
-            position: absolute; top: 22%; left: 0; width: 88%; height: 65%;
-            display: grid; grid-template-rows: repeat(15, 1fr); padding-right: 2%;
-        }
-        .table-row {
-            display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; width: 100%; height: 100%;
-        }
+        .table-overlay { position: absolute; top: 22%; left: 0; width: 88%; height: 65%; display: grid; grid-template-rows: repeat(15, 1fr); padding-right: 2%; z-index: 50; }
+        .table-row { display: grid; grid-template-columns: repeat(7, 1fr); width: 100%; height: 100%; }
         .cell-click { cursor: pointer; border-radius: 50%; }
         .cell-moon.done { background-color: rgba(255, 215, 0, 0.7); box-shadow: 0 0 10px gold; }
         .cell-circle.done { background-color: rgba(76, 175, 80, 0.7); box-shadow: 0 0 10px green; }
         .cell-heart.done { background-color: rgba(244, 67, 54, 0.7); box-shadow: 0 0 10px red; }
 
-        /* --- مناطق اللمس --- */
-        .star-zone { position: absolute; width: 16%; height: 12%; cursor: pointer; z-index: 50; }
-        .fruit-zone { position: absolute; width: 15%; height: 13%; border-radius: 50%; cursor: pointer; z-index: 50; }
+        .star-zone, .fruit-zone { position: absolute; width: 16%; height: 12%; cursor: pointer; z-index: 60; }
         .audio-btn-hidden { position: absolute; width: 80px; height: 80px; border-radius: 50%; cursor: pointer; z-index: 100; }
 
-        /* --- Popup --- */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; }
-        .modal-content {
-            background: #fff8e1; border: 5px solid #8d6e63; padding: 25px;
-            border-radius: 20px; width: 85%; max-width: 400px; text-align: center; position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        .close-modal { position: absolute; top: -15px; right: -10px; background: #d32f2f; color: white; width: 35px; height: 35px; border-radius: 50%; font-size: 22px; line-height: 35px; cursor: pointer; border: 3px solid white; font-weight:bold; }
-        .popup-title { color: #5d4037; font-weight: bold; font-size: 1.4rem; margin-bottom: 15px; border-bottom: 2px dashed #ccc; display: inline-block; padding-bottom: 5px; }
-        .popup-text { font-size: 1.1rem; line-height: 1.7; color: #333; white-space: pre-line; font-weight: 600; }
+        /* Popup */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; justify-content: center; align-items: center; }
+        .modal-content { background: #fff8e1; border: 5px solid #8d6e63; padding: 25px; border-radius: 20px; width: 85%; max-width: 400px; text-align: center; position: relative; }
+        .close-modal { position: absolute; top: -20px; right: -10px; background: #d32f2f; color: white; width: 40px; height: 40px; border-radius: 50%; font-size: 25px; line-height: 40px; cursor: pointer; border: 3px solid white; font-weight:bold; }
+        .popup-title { color: #5d4037; font-weight: bold; font-size: 1.5rem; margin-bottom: 15px; border-bottom: 2px dashed #ccc; display: inline-block; }
+        .popup-text { font-size: 1.2rem; line-height: 1.6; color: #333; white-space: pre-line; }
 
-        .section { display: none; animation: fadeIn 0.4s ease-in-out; }
-        .section.active { display: block; }
-        @keyframes fadeIn { from{opacity:0; transform: translateY(10px);} to{opacity:1; transform: translateY(0);} }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
     </style>
 </head>
 <body>
 
     <div class="nav-buttons">
         <button class="nav-btn" onclick="prevPage()">السابق ➡️</button>
-        <span id="page-num" style="align-self:center; font-weight:bold; color:#8b5e3c; font-size: 18px;">1 / 11</span>
+        <span id="page-num" style="font-weight:bold; color:#8b5e3c; font-size: 20px;">1 / 11</span>
         <button class="nav-btn" onclick="nextPage()">⬅️ التالي</button>
     </div>
 
-    <div id="page-1" class="section active">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-welcome) center/cover no-repeat;"></div>
-        </div>
-    </div>
+    <div id="page-1" class="section active"><div class="image-container"><div class="bg-img" style="background: var(--img-welcome) center/contain no-repeat;"></div></div></div>
 
-    <div id="page-2" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-id) center/cover no-repeat;"></div>
-            <input type="text" id="input-name" class="id-input" placeholder="الاسم" oninput="saveData()">
-            <input type="text" id="input-age" class="id-input" placeholder="العمر" oninput="saveData()">
-            <input type="text" id="input-goal" class="id-input" placeholder="الهدف" oninput="saveData()">
-        </div>
-    </div>
+    <div id="page-2" class="section"><div class="image-container"><div class="bg-img" style="background: var(--img-id) center/contain no-repeat;"></div>
+        <input type="text" id="input-name" class="id-input" placeholder="الاسم" oninput="saveData()">
+        <input type="text" id="input-age" class="id-input" placeholder="العمر" oninput="saveData()">
+        <input type="text" id="input-goal" class="id-input" placeholder="الهدف" oninput="saveData()">
+    </div></div>
 
-    <div id="page-3" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-meaning) center/cover no-repeat;"></div>
-            <div class="read-check" style="top:43%; left:45%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="read-check" style="top:52%; left:45%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="read-check" style="top:62%; left:45%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="read-check" style="top:66%; left:30%;" onclick="this.classList.toggle('checked')"></div> 
-            <div class="read-check" style="top:70%; left:30%;" onclick="this.classList.toggle('checked')"></div> 
-        </div>
-    </div>
+    <div id="page-3" class="section"><div class="image-container"><div class="bg-img" style="background: var(--img-meaning) center/contain no-repeat;"></div>
+        <div class="read-check" style="top:43%; left:45%;" onclick="this.classList.toggle('checked')"></div>
+        <div class="read-check" style="top:52%; left:45%;" onclick="this.classList.toggle('checked')"></div>
+        <div class="read-check" style="top:62%; left:45%;" onclick="this.classList.toggle('checked')"></div>
+        <div class="read-check" style="top:66%; left:30%;" onclick="this.classList.toggle('checked')"></div> 
+        <div class="read-check" style="top:70%; left:30%;" onclick="this.classList.toggle('checked')"></div> 
+    </div></div>
 
-    <div id="page-4" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-ethics) center/cover no-repeat;"></div>
-        </div>
-    </div>
+    <div id="page-4" class="section"><div class="image-container"><div class="bg-img" style="background: var(--img-ethics) center/contain no-repeat;"></div></div></div>
 
-    <div id="page-5" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-challenge) center/cover no-repeat;"></div>
-            <div class="quiz-check" style="top:33%; left:47%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="quiz-check" style="top:67%; left:40%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="quiz-check" style="bottom:4%; left:20%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="quiz-check" style="bottom:4%; left:45%;" onclick="this.classList.toggle('checked')"></div>
-        </div>
-    </div>
+    <div id="page-5" class="section"><div class="image-container"><div class="bg-img" style="background: var(--img-challenge) center/contain no-repeat;"></div>
+        <div class="quiz-check" style="top:33%; left:47%;" onclick="this.classList.toggle('checked')"></div>
+        <div class="quiz-check" style="top:67%; left:40%;" onclick="this.classList.toggle('checked')"></div>
+        <div class="quiz-check" style="bottom:4%; left:20%;" onclick="this.classList.toggle('checked')"></div>
+        <div class="quiz-check" style="bottom:4%; left:45%;" onclick="this.classList.toggle('checked')"></div>
+    </div></div>
 
     <div id="page-6" class="section">
-        <button class="nav-btn" style="margin:5px auto; display:block;" onclick="toggleTable()">تبديل الجدول (1-15 ↔ 16-30)</button>
+        <button class="nav-btn" style="margin:5px auto; font-size:14px; padding:8px 15px;" onclick="toggleTable()">تبديل الجدول (1-15 ↔ 16-30)</button>
         <div class="image-container">
-            <div id="table-bg" class="bg-img" style="height: 600px; background: var(--img-table1) center/contain no-repeat;"></div>
+            <div id="table-bg" class="bg-img" style="background: var(--img-table1) center/contain no-repeat;"></div>
             <div id="table-overlay-grid" class="table-overlay"></div>
         </div>
     </div>
 
-    <div id="page-7" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-treasures) center/cover no-repeat;"></div>
-            <div class="star-zone" style="top:33%; left:6%;" onclick="showPopup('⭐ تقوية الإرادة', 'الصيام يعلمني الصبر والتحكم في رغباتي.\nفأنا قوي وأستطيع الانتظار.')"></div>
-            <div class="star-zone" style="top:37%; left:28%;" onclick="showPopup('⭐ صحة الجسم', 'المعدة ترتاح قليلاً لتصبح أقوى.\nوجسمي يتخلص من السموم.')"></div>
-            <div class="star-zone" style="top:29%; left:45%;" onclick="showPopup('⭐ الشعور بالآخرين', 'أتذكر الفقراء والمحتاجين وأشكر الله على نعمة الطعام.')"></div>
-            <div class="star-zone" style="top:37%; left:66%;" onclick="showPopup('⭐ تقوى الله', 'أصوم لأن الله يحب الصائمين.\nولأفوز بباب الريان في الجنة.')"></div>
-             <div class="star-zone" style="top:29%; left:82%;" onclick="showPopup('⭐ تطهير النفس', 'وتزكيتها من الأخلاق السيئة وتعويدها للأخلاق الكريمة.')"></div>
+    <div id="page-7" class="section"><div class="image-container"><div class="bg-img" style="background: var(--img-treasures) center/contain no-repeat;"></div>
+        <div class="star-zone" style="top:33%; left:6%;" onclick="showPopup('⭐ تقوية الإرادة', 'الصيام يعلمني الصبر.')"></div>
+        <div class="star-zone" style="top:37%; left:28%;" onclick="showPopup('⭐ صحة الجسم', 'المعدة ترتاح قليلاً.')"></div>
+        <div class="star-zone" style="top:29%; left:45%;" onclick="showPopup('⭐ الشعور بالآخرين', 'أتذكر الفقراء والمحتاجين.')"></div>
+        <div class="star-zone" style="top:37%; left:66%;" onclick="showPopup('⭐ تقوى الله', 'أصوم لأن الله يحب الصائمين.')"></div>
+        <div class="star-zone" style="top:29%; left:82%;" onclick="showPopup('⭐ تطهير النفس', 'وتزكيتها من الأخلاق السيئة.')"></div>
+    </div></div>
+
+    <div id="page-8" class="section"><div class="image-container"><div class="bg-img" style="background: var(--img-garden) center/contain no-repeat;"></div>
+        <div class="fruit-zone" style="top:35%; left:42%;" onclick="showPopup('🍎 الدعاء', 'ارفع يديك وادعُ لنفسك.')"></div>
+        <div class="fruit-zone" style="top:38%; left:60%;" onclick="showPopup('🥭 إفطار صائم', 'شارك تمرة أو ماء.')"></div>
+        <div class="fruit-zone" style="top:40%; left:20%;" onclick="showPopup('🍊 التراويح', 'صلاة التراويح تغفر الذنوب.')"></div>
+        <div class="fruit-zone" style="top:38%; right:15%;" onclick="showPopup('🌸 القرآن', 'اجعل لك ورداً يومياً.')"></div>
+        <div class="fruit-zone" style="top:58%; left:25%;" onclick="showPopup('🍌 الأخلاق', 'الصائم لا يغضب.')"></div>
+        <div class="fruit-zone" style="top:52%; right:22%;" onclick="showPopup('🎁 بر الوالدين', 'اتصل بجدك وجدتك.')"></div>
+        <div class="fruit-zone" style="top:56%; left:45%;" onclick="showPopup('🍒 الصدقة', 'تبسمك في وجه أخيك صدقة.')"></div>
+    </div></div>
+
+    <div id="page-9" class="section"><div class="image-container"><div class="bg-img" style="background: var(--img-qadr1) center/contain no-repeat;"></div>
+        <div class="audio-btn-hidden" style="bottom:22%; right:12%;" onclick="toggleAudio('audio-qadr')"></div>
+    </div><audio id="audio-qadr" src="https://server10.mp3quran.net/minsh_mlm/097.mp3"></audio></div>
+
+    <div id="page-10" class="section"><div class="image-container"><div class="bg-img" style="background: var(--img-qadr2) center/contain no-repeat;"></div></div></div>
+
+    <div id="page-11" class="section"><div class="image-container"><div class="bg-img" style="background: var(--img-eid) center/contain no-repeat;"></div>
+        <div class="audio-btn-hidden" style="bottom:27%; left:12%; width:80px; height:80px;" onclick="toggleAudio('audio-eid')"></div>
+    </div><audio id="audio-eid" src="https://download.tvquran.com/download/Takbeerat/Takbeerat_Eid.mp3"></audio></div>
+
+    <div id="modal" class="modal" onclick="document.getElementById('modal').style.display='none'">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="close-modal" onclick="document.getElementById('modal').style.display='none'">×</div>
+            <h2 id="modal-title" class="popup-title"></h2>
+            <div id="modal-text" class="popup-text"></div>
         </div>
-        <p style="color:#8b5e3c;">اضغط على النجوم لتكتشف الكنوز! ⭐</p>
     </div>
 
-    <div id="page-8" class="section">
-        <div class="image-container">
-            <div class="bg-img" style="height: 700
+    <script>
+        let currentPage = 1; 
+        const totalPages = 11;
+
+        function showPage(num) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById('page-' + num);
+            if(target) target.classList.add('active');
+            document.getElementById('page-num').innerText = num + " / " + totalPages;
+            stopAllAudio();
+            window.scrollTo(0,0);
+        }
+
+        function nextPage() { 
+            if(currentPage < totalPages) { currentPage++; showPage(currentPage); } 
+        }
+
+        function prevPage() { 
+            if(currentPage > 1) { currentPage--; showPage(currentPage); } 
+        }
+
+        function showPopup(title, text) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerText = text;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function toggleAudio(id) {
+            const audio = document.getElementById(id);
+            if (audio && audio.paused) { 
+                stopAllAudio(); 
+                audio.play().catch(e=>console.log(e)); 
+            } else if(audio) { 
+                audio.pause(); 
+            }
+        }
+
+        function stopAllAudio() {
+            document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
+        }
+
+        let currentTableStart = 1;
+        function toggleTable() {
+            const bg = document.getElementById('table-bg');
+            if(currentTableStart === 1) {
+                bg.style.backgroundImage = "var(--img-table2)";
+                currentTableStart = 16;
+            } else {
+                bg.style.backgroundImage = "var(--img-table1)";
+                currentTableStart = 1;
+            }
+            renderTableOverlay();
+        }
+
+        function renderTableOverlay() {
+            const container = document.getElementById('table-overlay-grid');
+            if(!container) return;
+            container.innerHTML = '';
+            const types = ['moon', 'circle', 'circle', 'circle', 'circle', 'circle', 'heart'];
+            for(let i=0; i<15; i++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'table-row';
+                types.forEach((type, colIndex) => {
+                    const cell = document.createElement('div');
+                    cell.className = `cell-click cell-${type}`;
+                    const key = `day-${currentTableStart+i}-col-${colIndex}`;
+                    if(localStorage.getItem(key) === 'true') cell.classList.add('done');
+                    cell.onclick = function() {
+                        cell.classList.toggle('done');
+                        localStorage.setItem(key, cell.classList.contains('done'));
+                    };
+                    rowDiv.appendChild(cell);
+                });
+                container.appendChild(rowDiv);
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('myName', document.getElementById('input-name').value);
+            localStorage.setItem('myAge', document.getElementById('input-age').value);
+            localStorage.setItem('myGoal', document.getElementById('input-goal').value);
+        }
+
+        window.onload = function() {
+            if(localStorage.getItem('myName')) document.getElementById('input-name').value = localStorage.getItem('myName');
+            if(localStorage.getItem('myAge')) document.getElementById('input-age').value = localStorage.getItem('myAge');
+            if(localStorage.getItem('myGoal')) document.getElementById('input-goal').value = localStorage.getItem('myGoal');
+            renderTableOverlay();
+        };
+    </script>
+</body>
+</html>
