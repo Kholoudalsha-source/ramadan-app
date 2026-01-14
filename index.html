@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تطبيق رمضان (وضع الاختبار)</title>
+    <title>كتيبي الرمضاني</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
@@ -27,52 +27,63 @@
         .bg-img { width: 100%; display: block; border-radius: 0 0 15px 15px; }
         
         .nav-buttons { display: flex; justify-content: space-between; max-width: 500px; margin: 10px auto; padding: 0 10px; }
-        .nav-btn { background: #8b5e3c; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; }
+        .nav-btn { background: #8b5e3c; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
 
-        /* --- الهوية (مع حدود حمراء للتجربة) --- */
+        /* --- 1. الهوية (تعديل دقيق للأماكن) --- */
         .id-input {
-            position: absolute; background: rgba(255, 255, 255, 0.5); /* خلفية بيضاء خفيفة لنراها */
-            border: 2px solid red; /* حدود حمراء */
-            font-family: 'Tajawal'; font-size: 18px; color: #5d4037;
-            text-align: center; width: 50%; height: 35px;
-            left: 25%; z-index: 100;
+            position: absolute; background: transparent; border: none;
+            font-family: 'Tajawal'; font-size: 16px; color: #5d4037;
+            text-align: center; width: 45%; height: 30px;
+            left: 28%; /* توسيط */
+            z-index: 100;
         }
-        #input-name { top: 48%; } 
-        #input-age  { top: 63%; } 
-        #input-goal { top: 78%; }
+        /* تم إنزال الخانات لتناسب الفراغات البيضاء */
+        #input-name { top: 60%; } 
+        #input-age  { top: 75%; } 
+        #input-goal { top: 90%; }
 
-        /* --- الجدول (حدود حمراء) --- */
+        /* --- 2. الجدول (الشبكة الخفية) --- */
         .table-overlay {
             position: absolute;
-            top: 22%; /* بداية الجدول التقريبية */
-            left: 0; width: 100%; height: 65%; /* ارتفاع الجدول التقريبي */
+            top: 22%; left: 0; width: 88%; /* تقليل العرض لكي لا يغطي الأرقام */
+            height: 65%;
             display: grid;
             grid-template-rows: repeat(15, 1fr); 
-            padding: 0 4%; box-sizing: border-box;
-            border: 3px solid blue; /* إطار أزرق حول الجدول كاملاً */
+            padding-right: 2%; box-sizing: border-box;
+            /* border: 2px solid red; للتجربة فقط */
         }
         .table-row {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1.2fr; /* تعديل ترتيب الأعمدة */
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* 7 أعمدة فقط (بدون الأرقام) */
             width: 100%; height: 100%;
-            border-bottom: 1px dashed red; /* خط أحمر بين الصفوف */
         }
         .cell-click {
-            cursor: pointer; border-right: 1px dashed red; /* خط أحمر بين الأعمدة */
-            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border-radius: 50%;
+            background: transparent;
         }
-        .cell-click.done { background-color: rgba(0, 255, 0, 0.5); } /* أخضر عند الضغط */
+        .cell-click.done {
+            background-color: rgba(139, 195, 74, 0.5); /* لون أخضر شفاف */
+            box-shadow: 0 0 8px #8bc34a;
+        }
 
-        /* --- أزرار الصوت (ظاهرة الآن) --- */
-        .audio-btn-visible {
-            position: absolute; width: 60px; height: 60px;
-            background: rgba(0, 0, 255, 0.3); /* لون أزرق شفاف */
-            border: 2px solid blue; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 30px; cursor: pointer; color: white;
+        /* --- المربعات التفاعلية --- */
+        .checkbox-zone {
+            position: absolute; width: 40px; height: 40px;
+            border-radius: 5px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 30px; color: #4caf50;
         }
-        .audio-btn-visible::after { content: '▶'; } /* رمز التشغيل */
-        .audio-btn-visible.playing::after { content: '⏸'; } /* رمز الإيقاف */
+        .checkbox-zone.checked::after { content: '✔'; }
+        
+        /* --- أزرار الصوت المخفية --- */
+        .audio-btn-hidden {
+            position: absolute; width: 60px; height: 60px;
+            background: transparent; /* شفاف تماماً */
+            border-radius: 50%; cursor: pointer; z-index: 20;
+        }
+
+        /* --- البستان والنجوم --- */
+        .fruit-zone { position: absolute; width: 15%; height: 12%; border-radius: 50%; cursor: pointer; z-index: 10; }
+        .star-zone { position: absolute; width: 15%; height: 10%; cursor: pointer; }
 
         /* --- Popup --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
@@ -81,9 +92,6 @@
         .section { display: none; animation: fadeIn 0.5s; }
         .section.active { display: block; }
         @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-        
-        /* للكتابة فوق الجدول */
-        .debug-text { position: absolute; top: -30px; left: 0; width: 100%; background: black; color: white; font-size: 12px; }
     </style>
 </head>
 <body>
@@ -104,109 +112,46 @@
     </div>
 
     <div id="page-2" class="section"><div class="image-container"><div class="bg-img" style="height: 700px; background: var(--img-meaning) center/cover no-repeat;"></div></div></div>
-    <div id="page-3" class="section"><div class="image-container"><div class="bg-img" style="height: 700px; background: var(--img-ethics) center/cover no-repeat;"></div></div></div>
-    <div id="page-4" class="section"><div class="image-container"><div class="bg-img" style="height: 700px; background: var(--img-challenge) center/cover no-repeat;"></div></div></div>
+    
+    <div id="page-3" class="section">
+        <div class="image-container">
+            <div class="bg-img" style="height: 700px; background: var(--img-ethics) center/cover no-repeat;"></div>
+            <div class="checkbox-zone" style="top:41%; right:47%;" onclick="this.classList.toggle('checked')"></div>
+        </div>
+    </div>
+
+    <div id="page-4" class="section">
+        <div class="image-container">
+            <div class="bg-img" style="height: 700px; background: var(--img-challenge) center/cover no-repeat;"></div>
+            <div class="checkbox-zone" style="top:32%; left:48%;" onclick="this.classList.toggle('checked')"></div>
+            <div class="checkbox-zone" style="top:40%; left:48%;" onclick="this.classList.toggle('checked')"></div>
+            <div class="checkbox-zone" style="top:59%; left:40%;" onclick="this.classList.toggle('checked')"></div>
+            <div class="checkbox-zone" style="top:66%; left:40%;" onclick="this.classList.toggle('checked')"></div>
+            <div class="checkbox-zone" style="bottom:5%; left:20%;" onclick="this.classList.toggle('checked')"></div>
+            <div class="checkbox-zone" style="bottom:5%; left:45%;" onclick="this.classList.toggle('checked')"></div>
+        </div>
+    </div>
 
     <div id="page-5" class="section">
         <button class="nav-btn" style="margin:5px;" onclick="toggleTable()">تبديل الجدول (1-15 ↔ 16-30)</button>
         <div class="image-container">
             <div id="table-bg" class="bg-img" style="height: 600px; background: var(--img-table1) center/contain no-repeat;"></div>
-            
             <div id="table-overlay-grid" class="table-overlay"></div>
-            <div class="debug-text">صور الشاشة: هل الخطوط الحمراء فوق الصفوف بالضبط؟</div>
         </div>
     </div>
 
-    <div id="page-6" class="section"><div class="image-container"><div class="bg-img" style="height: 700px; background: var(--img-treasures) center/cover no-repeat;"></div></div></div>
-    <div id="page-7" class="section"><div class="image-container"><div class="bg-img" style="height: 700px; background: var(--img-garden) center/cover no-repeat;"></div></div></div>
-
-    <div id="page-8" class="section">
+    <div id="page-6" class="section">
         <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-qadr1) center/cover no-repeat;"></div>
-            <div id="btn-qadr" class="audio-btn-visible" style="bottom:22%; right:12%;" onclick="toggleAudio('audio-qadr', 'btn-qadr')"></div>
+            <div class="bg-img" style="height: 700px; background: var(--img-treasures) center/cover no-repeat;"></div>
+            <div class="star-zone" style="top:33%; left:6%;" onclick="showPopup('الكنز الأول', 'الصوم يقوي الإرادة والصبر.')"></div>
+            <div class="star-zone" style="top:37%; left:28%;" onclick="showPopup('الكنز الثاني', 'الصوم يريح المعدة وينقي الجسم.')"></div>
+            <div class="star-zone" style="top:29%; left:45%;" onclick="showPopup('الكنز الثالث', 'دعوة الصائم لا ترد عند فطره.')"></div>
+            <div class="star-zone" style="top:37%; left:66%;" onclick="showPopup('الكنز الرابع', 'باب الريان في الجنة خاص للصائمين.')"></div>
+             <div class="star-zone" style="top:29%; left:82%;" onclick="showPopup('الكنز الخامس', 'من صام يوماً في سبيل الله باعد الله وجهه عن النار سبعين خريفاً.')"></div>
         </div>
-        <audio id="audio-qadr" src="https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/097.mp3"></audio>
+        <p style="color:#8b5e3c;">اضغط على النجوم لتكتشف الكنوز! ⭐</p>
     </div>
 
-    <div id="page-9" class="section"><div class="image-container"><div class="bg-img" style="height: 700px; background: var(--img-qadr2) center/cover no-repeat;"></div></div></div>
-
-    <div id="page-10" class="section">
+    <div id="page-7" class="section">
         <div class="image-container">
-            <div class="bg-img" style="height: 700px; background: var(--img-eid) center/cover no-repeat;"></div>
-            <div id="btn-eid" class="audio-btn-visible" style="bottom:27%; left:12%;" onclick="toggleAudio('audio-eid', 'btn-eid')"></div>
-        </div>
-        <audio id="audio-eid" src="https://l.top4top.io/m_1947683m51.mp3"></audio>
-    </div>
-
-    <script>
-        let currentPage = 1; const totalPages = 10;
-        function showPage(num) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById('page-' + num).classList.add('active');
-            document.getElementById('page-num').innerText = num + " / " + totalPages;
-            stopAllAudio();
-        }
-        function nextPage() { if(currentPage < totalPages) { currentPage++; showPage(currentPage); } }
-        function prevPage() { if(currentPage > 1) { currentPage--; showPage(currentPage); } }
-
-        // الصوت
-        function toggleAudio(audioId, btnId) {
-            const audio = document.getElementById(audioId);
-            const btn = document.getElementById(btnId);
-            if (audio.paused) {
-                stopAllAudio(); // إيقاف أي صوت آخر
-                audio.play();
-                btn.classList.add('playing');
-            } else {
-                audio.pause();
-                btn.classList.remove('playing');
-            }
-        }
-        function stopAllAudio() {
-            document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
-            document.querySelectorAll('.audio-btn-visible').forEach(b => b.classList.remove('playing'));
-        }
-
-        // الجدول
-        let currentTableStart = 1;
-        function toggleTable() {
-            const bg = document.getElementById('table-bg');
-            if(currentTableStart === 1) {
-                bg.style.backgroundImage = "var(--img-table2)";
-                currentTableStart = 16;
-            } else {
-                bg.style.backgroundImage = "var(--img-table1)";
-                currentTableStart = 1;
-            }
-            renderTableOverlay();
-        }
-
-        function renderTableOverlay() {
-            const container = document.getElementById('table-overlay-grid');
-            container.innerHTML = '';
-            for(let i=0; i<15; i++) {
-                const rowDiv = document.createElement('div');
-                rowDiv.className = 'table-row';
-                // الأعمدة السبعة (من اليسار لليمين لأن اتجاه الصفحة RTL)
-                // صيام - فجر - ظهر - عصر - مغرب - عشاء - خير
-                for(let j=0; j<7; j++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell-click';
-                    const key = `day-${currentTableStart+i}-col-${j}`;
-                    if(localStorage.getItem(key) === 'true') cell.classList.add('done');
-                    cell.onclick = function() {
-                        cell.classList.toggle('done');
-                        localStorage.setItem(key, cell.classList.contains('done'));
-                    };
-                    rowDiv.appendChild(cell);
-                }
-                // العمود الأخير (اليوم) فارغ
-                rowDiv.appendChild(document.createElement('div'));
-                container.appendChild(rowDiv);
-            }
-        }
-
-        window.onload = function() { renderTableOverlay(); };
-    </script>
-</body>
-</html>
+            <div class="
