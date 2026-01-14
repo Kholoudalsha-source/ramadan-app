@@ -7,43 +7,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
-        /* --- قائمة الصور (تم وضع أسمائك الصحيحة هنا) --- */
+        /* --- قائمة الصور --- */
         :root {
-            /* 1. الغلاف (الهوية) */
             --img-cover: url('2_20260114_124959_0001.png');
-
-            /* 2. معنى الصيام */
             --img-meaning: url('3_20260114_124959_0002.png');
-
-            /* 3. أخلاق الصائم */
             --img-ethics: url('4_20260114_124959_0003.png');
-
-            /* 4. تحدي الصائم */
             --img-challenge: url('5_20260114_124959_0004.png');
-
-            /* 5. الجداول */
             --img-table1: url('6_20260114_124959_0005.png'); 
             --img-table2: url('7_20260114_124959_0006.png');
-
-            /* 6. كنوز رمضان */
             --img-treasures: url('8_20260114_124959_0007.png');
-
-            /* 7. بستان الحسنات */
             --img-garden: url('14_20260114_124959_0013.png');
-
-            /* 8. خير من ألف شهر (سورة القدر) */
             --img-qadr1: url('22_20260114_125000_0021.png');
-
-            /* 9. ليلة القدر (معلومات) */
             --img-qadr2: url('23_20260114_125000_0022.png');
-
-            /* 10. العيد */
             --img-eid: url('24_20260114_125000_0023.png');
         }
 
         body {
             font-family: 'Tajawal', sans-serif; margin: 0; padding: 0; 
-            background-color: #fdf6e3; text-align: center; padding-bottom: 80px;
+            background-color: #fdf6e3; text-align: center; padding-bottom: 50px;
         }
         .image-container {
             position: relative; width: 100%; max-width: 500px; margin: 0 auto;
@@ -62,40 +43,59 @@
             border-radius: 20px; cursor: pointer; font-family: 'Tajawal'; font-weight: bold;
         }
 
-        /* --- الهوية --- */
+        /* --- الهوية (تم تعديل الأماكن) --- */
         .id-input {
             position: absolute; background: transparent; border: none;
             font-family: 'Tajawal'; font-size: 18px; color: #5d4037;
             text-align: center; width: 50%; height: 35px;
-            left: 10%; /* تم التعديل لليسار */
+            left: 20%; /* توسيط أفقي */
+            z-index: 100;
         }
-        #input-name { top: 46%; } 
-        #input-age  { top: 61%; } 
-        #input-goal { top: 76%; }
+        /* تعديل الارتفاع (Top) بناء على الصور */
+        #input-name { top: 48%; } 
+        #input-age  { top: 63%; } 
+        #input-goal { top: 78%; }
 
-        /* --- المربعات التفاعلية (صح) --- */
+        /* --- الجدول (الشبكة الخفية) --- */
+        .table-overlay {
+            position: absolute;
+            top: 17.5%; left: 0; width: 100%; height: 79%;
+            display: grid;
+            grid-template-rows: repeat(15, 1fr); /* 15 صف */
+            padding: 0 2%; box-sizing: border-box;
+        }
+        .table-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* تقسيم الأعمدة */
+            width: 100%; height: 100%;
+        }
+        .cell-click {
+            cursor: pointer; border-radius: 50%;
+            background: transparent;
+        }
+        .cell-click.done {
+            background-color: rgba(139, 195, 74, 0.5); /* لون أخضر شفاف عند الضغط */
+            box-shadow: 0 0 5px #8bc34a;
+        }
+
+        /* --- المربعات التفاعلية (صح) لباقي الصفحات --- */
         .checkbox-zone {
-            position: absolute; width: 45px; height: 45px;
-            border: 2px dashed rgba(139, 94, 60, 0.2); border-radius: 5px; cursor: pointer;
+            position: absolute; width: 40px; height: 40px;
+            border-radius: 5px; cursor: pointer;
             display: flex; align-items: center; justify-content: center; font-size: 30px; color: #4caf50;
+            /* border: 1px dashed red;  للتجربة احذفي هذا السطر */
         }
         .checkbox-zone.checked::after { content: '✔'; }
         
-        /* --- النجوم --- */
-        .star-zone { position: absolute; width: 15%; height: 10%; cursor: pointer; }
-
-        /* --- مشغل الصوت --- */
-        .audio-player {
-            position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%);
-            width: 85%;
+        /* --- أزرار الصوت (مخفية فوق الرسمة) --- */
+        .audio-zone {
+            position: absolute; cursor: pointer; border-radius: 50%;
+            /* background: rgba(255, 0, 0, 0.3);  للتجربة */
         }
-        audio { width: 100%; height: 45px; border-radius: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-        /* --- البستان والجدول --- */
+        /* --- البستان والنجوم --- */
         .fruit-zone { position: absolute; width: 15%; height: 12%; border-radius: 50%; cursor: pointer; z-index: 10; }
-        .digital-tracker { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; max-width: 480px; margin: 10px auto; padding: 10px; }
-        .day-check { aspect-ratio: 1; background: white; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; border: 1px solid #ddd; cursor: pointer; }
-        .day-check.done { background: #8bc34a; color: white; }
+        .star-zone { position: absolute; width: 15%; height: 10%; cursor: pointer; }
 
         /* --- Popup --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
@@ -117,9 +117,9 @@
     <div id="page-1" class="section active">
         <div class="image-container">
             <div class="bg-img" style="height: 700px; background: var(--img-cover) center/cover no-repeat;"></div>
-            <input type="text" id="input-name" class="id-input" placeholder="اسمك" oninput="saveData()">
-            <input type="text" id="input-age" class="id-input" placeholder="عمرك" oninput="saveData()">
-            <input type="text" id="input-goal" class="id-input" placeholder="هدفك" oninput="saveData()">
+            <input type="text" id="input-name" class="id-input" placeholder="اكتب اسمك" oninput="saveData()">
+            <input type="text" id="input-age" class="id-input" placeholder="اكتب عمرك" oninput="saveData()">
+            <input type="text" id="input-goal" class="id-input" placeholder="اكتب هدفك" oninput="saveData()">
         </div>
     </div>
 
@@ -132,17 +132,15 @@
     <div id="page-3" class="section">
         <div class="image-container">
             <div class="bg-img" style="height: 700px; background: var(--img-ethics) center/cover no-repeat;"></div>
-            <div class="checkbox-zone" style="top:42%; right:45%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="checkbox-zone" style="top:52%; right:45%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="checkbox-zone" style="top:62%; right:45%;" onclick="this.classList.toggle('checked')"></div>
+            <div class="checkbox-zone" style="top:41%; right:47%;" onclick="this.classList.toggle('checked')"></div>
         </div>
     </div>
 
     <div id="page-4" class="section">
         <div class="image-container">
             <div class="bg-img" style="height: 700px; background: var(--img-challenge) center/cover no-repeat;"></div>
-            <div class="checkbox-zone" style="top:32%; left:45%;" onclick="this.classList.toggle('checked')"></div>
-            <div class="checkbox-zone" style="top:40%; left:45%;" onclick="this.classList.toggle('checked')"></div>
+            <div class="checkbox-zone" style="top:32%; left:48%;" onclick="this.classList.toggle('checked')"></div>
+            <div class="checkbox-zone" style="top:40%; left:48%;" onclick="this.classList.toggle('checked')"></div>
             <div class="checkbox-zone" style="top:59%; left:40%;" onclick="this.classList.toggle('checked')"></div>
             <div class="checkbox-zone" style="top:66%; left:40%;" onclick="this.classList.toggle('checked')"></div>
             <div class="checkbox-zone" style="bottom:5%; left:20%;" onclick="this.classList.toggle('checked')"></div>
@@ -154,8 +152,10 @@
         <button class="nav-btn" style="margin:5px;" onclick="toggleTable()">تبديل الجدول (1-15 ↔ 16-30)</button>
         <div class="image-container">
             <div id="table-bg" class="bg-img" style="height: 600px; background: var(--img-table1) center/contain no-repeat;"></div>
+            
+            <div id="table-overlay-grid" class="table-overlay">
+                </div>
         </div>
-        <div class="digital-tracker" id="tracker-grid"></div>
     </div>
 
     <div id="page-6" class="section">
@@ -186,10 +186,9 @@
     <div id="page-8" class="section">
         <div class="image-container">
             <div class="bg-img" style="height: 700px; background: var(--img-qadr1) center/cover no-repeat;"></div>
-            <div class="audio-player">
-                <audio controls src="https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/097.mp3"></audio>
-            </div>
+            <div class="audio-zone" style="bottom:22%; right:12%; width:60px; height:60px;" onclick="toggleAudio('audio-qadr')"></div>
         </div>
+        <audio id="audio-qadr" src="https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/097.mp3"></audio>
     </div>
 
     <div id="page-9" class="section">
@@ -201,10 +200,9 @@
     <div id="page-10" class="section">
         <div class="image-container">
             <div class="bg-img" style="height: 700px; background: var(--img-eid) center/cover no-repeat;"></div>
-            <div class="audio-player">
-                <audio controls src="https://l.top4top.io/m_1947683m51.mp3"></audio>
-            </div>
+            <div class="audio-zone" style="bottom:27%; left:12%; width:80px; height:80px;" onclick="toggleAudio('audio-eid')"></div>
         </div>
+        <audio id="audio-eid" src="https://l.top4top.io/m_1947683m51.mp3"></audio>
     </div>
 
     <div id="modal" class="modal" onclick="document.getElementById('modal').style.display='none'">
@@ -222,7 +220,9 @@
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById('page-' + num).classList.add('active');
             document.getElementById('page-num').innerText = num + " / " + totalPages;
-            document.querySelectorAll('audio').forEach(a => { a.pause(); });
+            
+            // إيقاف جميع الأصوات عند تقليب الصفحة
+            document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
             window.scrollTo(0,0);
         }
         function nextPage() { if(currentPage < totalPages) { currentPage++; showPage(currentPage); } }
@@ -234,32 +234,67 @@
             document.getElementById('modal').style.display = 'flex';
         }
 
-        // --- الجدول ---
-        let isTable2 = false;
-        function toggleTable() {
-            isTable2 = !isTable2;
-            const bg = document.getElementById('table-bg');
-            if(isTable2) {
-                bg.style.backgroundImage = "var(--img-table2)";
-                renderTracker(16, 30);
+        // --- تشغيل الصوت ---
+        function toggleAudio(id) {
+            const audio = document.getElementById(id);
+            if (audio.paused) {
+                audio.play();
             } else {
-                bg.style.backgroundImage = "var(--img-table1)";
-                renderTracker(1, 15);
+                audio.pause();
             }
         }
-        function renderTracker(start, end) {
-            const grid = document.getElementById('tracker-grid');
-            grid.innerHTML = '';
-            for(let i=start; i<=end; i++) {
-                let btn = document.createElement('div');
-                btn.className = 'day-check';
-                if(localStorage.getItem('day-'+i) === 'true') btn.classList.add('done');
-                btn.innerHTML = `<span>📅</span>${i}`;
-                btn.onclick = function() {
-                    btn.classList.toggle('done');
-                    localStorage.setItem('day-'+i, btn.classList.contains('done'));
-                };
-                grid.appendChild(btn);
+
+        // --- منطق الجدول الجديد (Overlay) ---
+        let currentTableStart = 1;
+        function toggleTable() {
+            const bg = document.getElementById('table-bg');
+            if(currentTableStart === 1) {
+                bg.style.backgroundImage = "var(--img-table2)";
+                currentTableStart = 16;
+            } else {
+                bg.style.backgroundImage = "var(--img-table1)";
+                currentTableStart = 1;
+            }
+            renderTableOverlay();
+        }
+
+        function renderTableOverlay() {
+            const container = document.getElementById('table-overlay-grid');
+            container.innerHTML = '';
+            
+            // 15 صف
+            for(let i=0; i<15; i++) {
+                const dayNum = currentTableStart + i;
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'table-row';
+
+                // تخطي عمود اليوم (الأول) لأنه للقراءة فقط
+                // إضافة عمود فارغ لليوم لكي نزيح الباقي
+                rowDiv.appendChild(document.createElement('div'));
+
+                // 7 أعمدة تفاعلية (صيام، فجر، ظهر، عصر، مغرب، عشاء، خير)
+                // الترتيب في الصورة: صيام (يمين) -> فجر -> ظهر -> ... -> خير (يسار)
+                // بما أن الاتجاه RTL، فإن العمود الأول هو "صيام"
+                const habits = ['fasting', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha', 'good'];
+                
+                habits.forEach((habit, index) => {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell-click';
+                    
+                    // استرجاع الحالة
+                    const storageKey = `day-${dayNum}-${habit}`;
+                    if(localStorage.getItem(storageKey) === 'true') {
+                        cell.classList.add('done');
+                    }
+
+                    cell.onclick = function() {
+                        cell.classList.toggle('done');
+                        localStorage.setItem(storageKey, cell.classList.contains('done'));
+                    };
+                    rowDiv.appendChild(cell);
+                });
+
+                container.appendChild(rowDiv);
             }
         }
 
@@ -273,7 +308,7 @@
             if(localStorage.getItem('myName')) document.getElementById('input-name').value = localStorage.getItem('myName');
             if(localStorage.getItem('myAge')) document.getElementById('input-age').value = localStorage.getItem('myAge');
             if(localStorage.getItem('myGoal')) document.getElementById('input-goal').value = localStorage.getItem('myGoal');
-            renderTracker(1, 15);
+            renderTableOverlay();
         };
     </script>
 </body>
