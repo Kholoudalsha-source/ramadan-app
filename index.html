@@ -1,83 +1,88 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كتيب رمضان التفاعلي</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>هويتي الرمضانية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="app-container">
-        
-        <section class="page active" id="page-1" style="background-image: url('1_20260114_124959_0000.png');">
-        </section>
+<div id="app">
 
-        <section class="page" id="page-2" style="background-image: url('2_20260114_124959_0001.png');">
-            <div class="input-area" style="top: 40%; left: 50%;">
-                <input type="text" id="user-name" placeholder="الاسم" oninput="saveIdentity()">
-                <input type="number" id="user-age" placeholder="العمر" oninput="saveIdentity()">
-                <textarea id="user-goal" placeholder="هدفي في رمضان" oninput="saveIdentity()"></textarea>
-            </div>
-        </section>
+  <!-- الصفحات -->
+  <div class="page active" data-page="1" style="background-image:url('images/cover.png')">
+    <h1 class="title">أهلاً يا شهر الخير</h1>
+  </div>
 
-        <section class="page" id="page-3" style="background-image: url('3_20260114_124959_0002.png');">
-            <div class="check-box" data-id="p3_c1" style="top: 35%; left: 15%;" onclick="toggleCheck(this)"></div>
-            <div class="check-box" data-id="p3_c2" style="top: 48%; left: 15%;" onclick="toggleCheck(this)"></div>
-            <div class="check-box" data-id="p3_c3" style="top: 61%; left: 15%;" onclick="toggleCheck(this)"></div>
-        </section>
+  <!-- 2 الهوية -->
+  <div class="page" data-page="2" style="background-image:url('images/2_0001.png')">
+    <input id="name" placeholder="اسمي">
+    <input id="age" placeholder="عمري">
+    <input id="goal" placeholder="هدفي في رمضان">
+  </div>
 
-        <section class="page" id="page-4" style="background-image: url('4_20260114_124959_0003.png');">
-        </section>
+  <!-- 3 معنى الصيام -->
+  <div class="page" data-page="3" style="background-image:url('images/3_0002.png')">
+    <div class="check" data-id="fast1"></div>
+    <div class="check" data-id="fast2"></div>
+    <div class="check" data-id="fast3"></div>
+  </div>
 
-        <section class="page" id="page-5" style="background-image: url('5_20260114_124959_0004.png');">
-            <div class="quiz-option" data-id="p5_q1" data-correct="true" style="top: 40%; left: 50%;" onclick="checkAnswer(this)">صومه صحيح</div>
-            <div class="quiz-option" data-id="p5_q2" data-correct="true" style="top: 55%; left: 50%;" onclick="checkAnswer(this)">إني صائم</div>
-        </section>
+  <!-- 4 أخلاق الصائم -->
+  <div class="page" data-page="4" style="background-image:url('images/4_0003.png')"></div>
 
-        <section class="page" id="page-6" style="background-image: url('6_20260114_124959_0005.png');">
-            <div class="schedule-grid" id="schedule-container">
-                </div>
-        </section>
+  <!-- 5 تحدي الصائم -->
+  <div class="page" data-page="5" style="background-image:url('images/5_0004.png')">
+    <div class="quiz" data-correct="true">صومه صحيح</div>
+    <div class="quiz" data-correct="true">إني صائم</div>
+    <div class="quiz" data-correct="true">البحث عن الهلال</div>
+  </div>
 
-        <section class="page" id="page-7" style="background-image: url('8_20260114_124959_0007.png');">
-            <div class="star-btn" style="top: 30%; left: 30%;" onclick="showPopup('الكنز الأول: قراءة القرآن')">⭐</div>
-            <div class="star-btn" style="top: 50%; left: 60%;" onclick="showPopup('الكنز الثاني: صلاة التراويح')">⭐</div>
-        </section>
+  <!-- 6 الجدول -->
+  <div class="page" data-page="6" style="background-image:url('images/6_0005.png')">
+    <div class="icon moon">🌙</div>
+    <div class="icon circle">⚪</div>
+    <div class="icon heart">❤️</div>
+  </div>
 
-        <section class="page" id="page-8" style="background-image: url('14_20260114_124959_0013.png');">
-            <div class="fruit-btn" style="top: 40%; left: 40%;" onclick="showPopup('بستان الحسنات: بر الوالدين')">🍎</div>
-            <div class="fruit-btn" style="top: 60%; left: 20%;" onclick="showPopup('بستان الحسنات: إطعام مسكين')">🍌</div>
-        </section>
+  <!-- 7 كنوز رمضان -->
+  <div class="page" data-page="7" style="background-image:url('images/8_0007.png')">
+    <div class="star" data-text="الصلاة">⭐</div>
+    <div class="star" data-text="الذكر">⭐</div>
+  </div>
 
-        <section class="page" id="page-9" style="background-image: url('22_20260114_125000_0021.png');">
-            <button class="audio-btn" onclick="toggleAudio('audio-qadr')">🔊 سورة القدر</button>
-            <audio id="audio-qadr" src="audio/al-qadr.mp3"></audio>
-        </section>
+  <!-- 8 بستان الحسنات -->
+  <div class="page" data-page="8" style="background-image:url('images/14_0013.png')">
+    <div class="fruit" data-text="الصدقة">🍎</div>
+    <div class="fruit" data-text="بر الوالدين">🍌</div>
+    <div class="fruit" data-text="قراءة القرآن">🍇</div>
+  </div>
 
-        <section class="page" id="page-10" style="background-image: url('23_20260114_125000_0022.png');">
-        </section>
+  <!-- 9 سورة القدر -->
+  <div class="page" data-page="9" style="background-image:url('images/22_0021.png')">
+    <button onclick="toggleAudio('qadr')">🔊</button>
+  </div>
 
-        <section class="page" id="page-11" style="background-image: url('24_20260114_125000_0023.png');">
-            <button class="audio-btn" onclick="toggleAudio('audio-eid')">🎉 تكبيرات العيد</button>
-            <audio id="audio-eid" src="audio/eid-takbeer.mp3"></audio>
-        </section>
+  <!-- 10 ليلة القدر -->
+  <div class="page" data-page="10" style="background-image:url('images/23_0022.png')"></div>
 
-        <div class="navigation">
-            <button onclick="changePage(-1)">السابق</button>
-            <span id="page-num">1 / 11</span>
-            <button onclick="changePage(1)">التالي</button>
-        </div>
+  <!-- 11 العيد -->
+  <div class="page" data-page="11" style="background-image:url('images/24_0023.png')">
+    <button onclick="toggleAudio('eid')">🔊</button>
+  </div>
 
-        <div id="popup" class="popup-overlay" onclick="closePopup()">
-            <div class="popup-content">
-                <p id="popup-text"></p>
-                <button onclick="closePopup()">رائع!</button>
-            </div>
-        </div>
+</div>
 
-    </div>
+<!-- التنقل -->
+<div class="nav">
+  <button onclick="prevPage()">السابق</button>
+  <button onclick="nextPage()">التالي</button>
+</div>
 
-    <script src="script.js"></script>
+<audio id="qadr" src="audio/qadr.mp3"></audio>
+<audio id="eid" src="audio/eid.mp3"></audio>
+
+<script src="script.js"></script>
 </body>
 </html>
