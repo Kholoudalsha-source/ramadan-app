@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Tahoma', sans-serif; /* استخدم خطاً مناسباً للأطفال */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 600px; /* حجم التابلت/الجوال */
+    height: 100%;
+    max-height: 900px;
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.page {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%; /* تمدد الصورة لملء الشاشة */
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.page.active {
+    display: block;
+}
+
+/* --- العناصر التفاعلية --- */
+/* يجب تعديل Top و Left لكل عنصر ليتناسب مع صورك */
+
+.input-area {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, textarea {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    background: rgba(255, 255, 255, 0.9);
+    text-align: center;
+}
+
+.check-box {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #4CAF50;
+    background: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.check-box.checked {
+    background-color: #4CAF50;
+}
+
+.check-box.checked::after {
+    content: '✔';
+    color: white;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.quiz-option {
+    position: absolute;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.8);
+    border: 2px solid #333;
+    cursor: pointer;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.schedule-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #eee;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    cursor: pointer;
+    border: 1px solid #999;
+}
+
+/* ألوان الجدول */
+.status-yellow { background-color: #FFEB3B; } /* هلال */
+.status-green { background-color: #4CAF50; } /* دائرة */
+.status-red { background-color: #F44336; }   /* قلب */
+
+.star-btn, .fruit-btn {
+    position: absolute;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.star-btn:hover, .fruit-btn:hover {
+    transform: scale(1.2);
+}
+
+.audio-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background: #FF9800;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* --- التنقل --- */
+.navigation {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 100;
+}
+
+.navigation button {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* --- النافذة المنبثقة --- */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 80%;
+    text-align: center;
+    font-size: 1.2rem;
+}
