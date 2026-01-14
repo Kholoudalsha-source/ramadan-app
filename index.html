@@ -10,54 +10,56 @@
 
     <div class="app-container">
         
-        <section class="page active" id="page-1" style="background-image: url('images/cover.png');">
-            </section>
+        <section class="page active" id="page-1" style="background-image: url('1_20260114_124959_0000.png');">
+        </section>
 
-        <section class="page" id="page-2" style="background-image: url('images/2_...0001.png');">
-            <div class="input-area" style="top: 30%; left: 50%;">
-                <input type="text" id="user-name" placeholder="اسمك البطل" oninput="saveIdentity()">
+        <section class="page" id="page-2" style="background-image: url('2_20260114_124959_0001.png');">
+            <div class="input-area" style="top: 40%; left: 50%;">
+                <input type="text" id="user-name" placeholder="الاسم" oninput="saveIdentity()">
                 <input type="number" id="user-age" placeholder="العمر" oninput="saveIdentity()">
-                <textarea id="user-goal" placeholder="هدفي في رمضان..." oninput="saveIdentity()"></textarea>
+                <textarea id="user-goal" placeholder="هدفي في رمضان" oninput="saveIdentity()"></textarea>
             </div>
         </section>
 
-        <section class="page" id="page-3" style="background-image: url('images/3_...0002.png');">
-            <div class="check-box" data-id="p3_c1" style="top: 40%; left: 20%;" onclick="toggleCheck(this)"></div>
-            <div class="check-box" data-id="p3_c2" style="top: 55%; left: 20%;" onclick="toggleCheck(this)"></div>
+        <section class="page" id="page-3" style="background-image: url('3_20260114_124959_0002.png');">
+            <div class="check-box" data-id="p3_c1" style="top: 35%; left: 15%;" onclick="toggleCheck(this)"></div>
+            <div class="check-box" data-id="p3_c2" style="top: 48%; left: 15%;" onclick="toggleCheck(this)"></div>
+            <div class="check-box" data-id="p3_c3" style="top: 61%; left: 15%;" onclick="toggleCheck(this)"></div>
         </section>
 
-        <section class="page" id="page-4" style="background-image: url('images/4_...0003.png');">
+        <section class="page" id="page-4" style="background-image: url('4_20260114_124959_0003.png');">
         </section>
 
-        <section class="page" id="page-5" style="background-image: url('images/5_...0004.png');">
-            <div class="quiz-option" data-id="p5_q1" data-correct="true" style="top: 50%; left: 30%;" onclick="checkAnswer(this)">إجابة صحيحة</div>
-            <div class="quiz-option" data-id="p5_q2" data-correct="false" style="top: 50%; left: 60%;" onclick="checkAnswer(this)">إجابة خاطئة</div>
+        <section class="page" id="page-5" style="background-image: url('5_20260114_124959_0004.png');">
+            <div class="quiz-option" data-id="p5_q1" data-correct="true" style="top: 40%; left: 50%;" onclick="checkAnswer(this)">صومه صحيح</div>
+            <div class="quiz-option" data-id="p5_q2" data-correct="true" style="top: 55%; left: 50%;" onclick="checkAnswer(this)">إني صائم</div>
         </section>
 
-        <section class="page" id="page-6" style="background-image: url('images/6_...0005.png');">
+        <section class="page" id="page-6" style="background-image: url('6_20260114_124959_0005.png');">
             <div class="schedule-grid" id="schedule-container">
                 </div>
         </section>
 
-        <section class="page" id="page-7" style="background-image: url('images/8_...0007.png');">
-            <div class="star-btn" style="top: 30%; left: 40%;" onclick="showPopup('معلومة النجمة 1')">⭐</div>
-            <div class="star-btn" style="top: 60%; left: 70%;" onclick="showPopup('معلومة النجمة 2')">⭐</div>
+        <section class="page" id="page-7" style="background-image: url('8_20260114_124959_0007.png');">
+            <div class="star-btn" style="top: 30%; left: 30%;" onclick="showPopup('الكنز الأول: قراءة القرآن')">⭐</div>
+            <div class="star-btn" style="top: 50%; left: 60%;" onclick="showPopup('الكنز الثاني: صلاة التراويح')">⭐</div>
         </section>
 
-        <section class="page" id="page-8" style="background-image: url('images/14_...0013.png');">
-            <div class="fruit-btn" style="top: 45%; left: 50%;" onclick="showPopup('حديث شريف: قال رسول الله...')">🍎</div>
+        <section class="page" id="page-8" style="background-image: url('14_20260114_124959_0013.png');">
+            <div class="fruit-btn" style="top: 40%; left: 40%;" onclick="showPopup('بستان الحسنات: بر الوالدين')">🍎</div>
+            <div class="fruit-btn" style="top: 60%; left: 20%;" onclick="showPopup('بستان الحسنات: إطعام مسكين')">🍌</div>
         </section>
 
-        <section class="page" id="page-9" style="background-image: url('images/22_...0021.png');">
-            <button class="audio-btn" onclick="toggleAudio('audio-qadr')">🔊 تشغيل سورة القدر</button>
+        <section class="page" id="page-9" style="background-image: url('22_20260114_125000_0021.png');">
+            <button class="audio-btn" onclick="toggleAudio('audio-qadr')">🔊 سورة القدر</button>
             <audio id="audio-qadr" src="audio/al-qadr.mp3"></audio>
         </section>
 
-        <section class="page" id="page-10" style="background-image: url('images/23_...0022.png');">
+        <section class="page" id="page-10" style="background-image: url('23_20260114_125000_0022.png');">
         </section>
 
-        <section class="page" id="page-11" style="background-image: url('images/24_...0023.png');">
-            <button class="audio-btn" onclick="toggleAudio('audio-eid')">🎉 تشغيل التكبيرات</button>
+        <section class="page" id="page-11" style="background-image: url('24_20260114_125000_0023.png');">
+            <button class="audio-btn" onclick="toggleAudio('audio-eid')">🎉 تكبيرات العيد</button>
             <audio id="audio-eid" src="audio/eid-takbeer.mp3"></audio>
         </section>
 
@@ -70,7 +72,7 @@
         <div id="popup" class="popup-overlay" onclick="closePopup()">
             <div class="popup-content">
                 <p id="popup-text"></p>
-                <button onclick="closePopup()">إغلاق</button>
+                <button onclick="closePopup()">رائع!</button>
             </div>
         </div>
 
