@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>كتابي الرمضاني التفاعلي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+        :root {
+            --primary: #8b5e3c;
+            --secondary: #d4a373;
+            --accent: #f1c40f;
+            --bg: #fdf6e3;
+            --white: #ffffff;
+            --green: #2ecc71;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 90px;
+            text-align: center;
+            color: #444;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* --- Header --- */
+        header {
+            background: var(--white);
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        h1 { margin: 0; color: var(--primary); font-size: 1.2rem; }
+        h2 { color: var(--secondary); font-size: 1.1rem; margin-top: 5px; }
+
+        /* --- Sections Layout --- */
+        .section { display: none; padding: 15px; animation: fadeIn 0.4s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 1. Identity Card --- */
+        .id-card {
+            background: white; border: 2px solid var(--secondary); border-radius: 15px;
+            padding: 20px; max-width: 400px; margin: 0 auto;
+        }
+        .input-group { margin-bottom: 15px; text-align: right; }
+        label { display: block; margin-bottom: 5px; color: var(--primary); font-weight: bold; }
+        input {
+            width: 90%; padding: 10px; border: 1px solid #ddd; border-radius: 10px;
+            font-family: inherit; font-size: 16px; background: #fafafa;
+        }
+
+        /* --- 2. Tracker Grid --- */
+        .tracker-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .grid-row {
+            display: grid; grid-template-columns: 40px repeat(6, 1fr); gap: 4px;
+            min-width: 320px; margin-bottom: 8px; align-items: center;
+        }
+        .day-num { background: #eee; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
+        .icon-btn {
+            height: 35px; border: 1px solid #e0c097; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            font-size: 18px; background: white; transition: 0.2s;
+        }
+        .icon-btn.active { background: var(--accent); border-color: orange; color: white; }
+        .heart::before { content: '❤'; } .moon::before { content: '🌙'; }
+
+        /* --- 3. Garden (Bustan) --- */
+        .tree-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+            max-width: 500px; margin: 0 auto;
+        }
+        .fruit-btn {
+            background: white; padding: 15px; border-radius: 15px;
+            box-shadow: 0 4px 0 var(--green); border: 2px solid #e8f5e9;
+            cursor: pointer; transition: 0.2s;
+        }
+        .fruit-btn:active { transform: translateY(4px); box-shadow: none; }
+        .fruit-icon { font-size: 30px; display: block; margin-bottom: 5px; }
+
+        /* --- 4. Treasures (Kunuz) --- */
+        .treasure-box {
+            background: white; padding: 15px; margin-bottom: 10px; border-radius: 10px;
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            border-right: 5px solid var(--secondary);
+        }
+        .treasure-box.open { background: #fff9c4; border-color: var(--accent); }
+        .star-icon { color: #ddd; font-size: 24px; }
+        .treasure-box.open .star-icon { color: orange; }
+
+        /* --- 5. Laylat Al-Qadr & Eid (Audio) --- */
+        .audio-card {
+            background: white; padding: 20px; border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-top: 20px;
+        }
+        .play-btn {
+            background: var(--primary); color: white; border: none;
+            padding: 15px 30px; border-radius: 50px; font-size: 18px;
+            cursor: pointer; margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%;
+        }
+        .qadr-text { font-size: 1.2rem; line-height: 1.8; color: #333; margin: 20px 0; }
+
+        /* --- Popups (Modals) --- */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: white; padding: 25px; border-radius: 20px; width: 80%;
+            max-width: 400px; text-align: center; position: relative;
+            animation: popIn 0.3s ease;
+        }
+        .close-modal {
+            position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #999;
+        }
+        @keyframes popIn { from { transform: scale(0.8); } to { transform: scale(1); } }
+
+        /* --- Bottom Nav --- */
+        .nav-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: white;
+            display: flex; justify-content: space-around; padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 500;
+        }
+        .nav-item {
+            text-align: center; font-size: 10px; color: #999; cursor: pointer;
+        }
+        .nav-item.active { color: var(--primary); font-weight: bold; }
+        .nav-icon { display: block; font-size: 22px; margin-bottom: 2px; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="header-title">أهلاً يا شهر الخير 🌙</h1>
+    </header>
+
+    <div id="sec-id" class="section active">
+        <div class="id-card">
+            <h2>هويتي الرمضانية</h2>
+            <div class="input-group">
+                <label>اسمي الجميل:</label>
+                <input type="text" id="user-name" placeholder="اكتب اسمك هنا" oninput="saveIdentity()">
+            </div>
+            <div class="input-group">
+                <label>عمري:</label>
+                <input type="number" id="user-age" placeholder="عمرك" oninput="saveIdentity()">
+            </div>
+            <div class="input-group">
+                <label>هدفي هذا الشهر:</label>
+                <input type="text" id="user-goal" placeholder="مثال: ختم القرآن" oninput="saveIdentity()">
+            </div>
+        </div>
+        <img src="https://cdn-icons-png.flaticon.com/512/4358/4358667.png" width="150" style="margin-top:30px; opacity:0.8;">
+    </div>
+
+    <div id="sec-tracker" class="section">
+        <h2>📅 مفكرتي الرمضانية</h2>
+        <p>لون القلب أو الهلال عند الإنجاز</p>
+        <div class="tracker-wrapper">
+            <div class="grid-row" style="font-weight:bold; color:var(--primary);">
+                <div>#</div><div>صوم</div><div>فجر</div><div>ظهر</div><div>عصر</div><div>مغرب</div><div>عشاء</div>
+            </div>
+            <div id="grid-container"></div>
+        </div>
+    </div>
+
+    <div id="sec-garden" class="section">
+        <h2>🌿 بستان الحسنات</h2>
+        <p>اضغط على الثمرة لتقطف المعلومة</p>
+        <div class="tree-container">
+            <div class="fruit-btn" onclick="showPopup('القرآن الكريم', 'اجعل لك ورداً يومياً ولو صفحة واحدة. القرآن يشفع لصاحبه.')">
+                <span class="fruit-icon">📖</span> قرآن
+            </div>
+            <div class="fruit-btn" onclick="showPopup('إفطار صائم', 'شارك تمرة أو ماء. من فطر صائماً كان له مثل أجره.')">
+                <span class="fruit-icon">🥛</span> إفطار
+            </div>
+            <div class="fruit-btn" onclick="showPopup('الدعاء', 'للصائم دعوة لا ترد. ارفع يديك قبل الإفطار.')">
+                <span class="fruit-icon">🤲</span> دعاء
+            </div>
+            <div class="fruit-btn" onclick="showPopup('صلاة التراويح', 'من قام رمضان إيماناً واحتساباً غفر له ما تقدم من ذنبه.')">
+                <span class="fruit-icon">🕌</span> تراويح
+            </div>
+            <div class="fruit-btn" onclick="showPopup('حسن الخلق', 'الصائم لا يغضب ولا يؤذي أحداً. تبسمك صدقة.')">
+                <span class="fruit-icon">😊</span> أخلاق
+            </div>
+            <div class="fruit-btn" onclick="showPopup('الصدقة', 'كان النبي ﷺ أجود الناس في رمضان. تصدق ولو بالقليل.')">
+                <span class="fruit-icon">💰</span> صدقة
+            </div>
+        </div>
+    </div>
+
+    <div id="sec-treasures" class="section">
+        <h2>💎 كنوز رمضان</h2>
+        <p>ماذا نستفيد من الصيام؟ اضغط لتعرف</p>
+        <div id="treasures-list"></div>
+    </div>
+
+    <div id="sec-qadr" class="section">
+        <h2>✨ ليلة القدر</h2>
+        <div class="audio-card">
+            <p>هي خير من ألف شهر (83 سنة تقريباً)!</p>
+            <div class="qadr-text">
+                إِنَّا أَنزَلْنَاهُ فِي لَيْلَةِ الْقَدْرِ ۝ وَمَا أَدْرَاكَ مَا لَيْلَةُ الْقَدْرِ ۝ لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ
+            </div>
+            
+            <audio id="audio-qadr" src="https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/097.mp3"></audio>
+            
+            <button class="play-btn" onclick="toggleAudio('audio-qadr', this)">
+                <span>▶</span> استمع للسورة
+            </button>
+        </div>
+        <div style="margin-top:20px; background:white; padding:15px; border-radius:10px;">
+            <b>دعاء ليلة القدر:</b><br>
+            "اللَّهُمَّ إِنَّكَ عُفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي"
+        </div>
+    </div>
+
+    <div id="sec-eid" class="section">
+        <h2>🎈 عيد الفطر المبارك</h2>
+        <div class="audio-card" style="border-top: 5px solid var(--accent);">
+            <h3>تقبل الله منا ومنكم</h3>
+            <p>سنن العيد: الغسل، التطيب، لبس الجديد، أكل تمرات.</p>
+            
+            <audio id="audio-eid" src="https://l.top4top.io/m_1947683m51.mp3"></audio>
+
+            <button class="play-btn" style="background:#2ecc71;" onclick="toggleAudio('audio-eid', this)">
+                <span>🔊</span> تشغيل التكبيرات
+            </button>
+        </div>
+    </div>
+
+    <div id="modal" class="modal" onclick="closePopup()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closePopup()">&times;</span>
+            <h3 id="modal-title" style="color:var(--primary)"></h3>
+            <p id="modal-text" style="font-size:1.1rem; line-height:1.6"></p>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <div class="nav-item active" onclick="navTo('id', this)"><span class="nav-icon">👤</span>هويتي</div>
+        <div class="nav-item" onclick="navTo('tracker', this)"><span class="nav-icon">📅</span>المفكرة</div>
+        <div class="nav-item" onclick="navTo('garden', this)"><span class="nav-icon">🌿</span>البستان</div>
+        <div class="nav-item" onclick="navTo('treasures', this)"><span class="nav-icon">💎</span>الكنوز</div>
+        <div class="nav-item" onclick="navTo('qadr', this)"><span class="nav-icon">✨</span>القدر</div>
+        <div class="nav-item" onclick="navTo('eid', this)"><span class="nav-icon">🎈</span>العيد</div>
+    </div>
+
+    <script>
+        // 1. Navigation Logic
+        function navTo(secId, btn) {
+            // Stop all audio when switching tabs
+            document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
+            document.querySelectorAll('.play-btn span').forEach(s => s.innerText = '▶');
+
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById('sec-' + secId).classList.add('active');
+            btn.classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        // 2. Identity Saving
+        function saveIdentity() {
+            localStorage.setItem('name', document.getElementById('user-name').value);
+            localStorage.setItem('age', document.getElementById('user-age').value);
+            localStorage.setItem('goal', document.getElementById('user-goal').value);
+        }
+        // Load Identity
+        window.onload = function() {
+            if(localStorage.getItem('name')) document.getElementById('user-name').value = localStorage.getItem('name');
+            if(localStorage.getItem('age')) document.getElementById('user-age').value = localStorage.getItem('age');
+            if(localStorage.getItem('goal')) document.getElementById('user-goal').value = localStorage.getItem('goal');
+            renderTracker();
+            renderTreasures();
+        }
+
+        // 3. Tracker Logic
+        function renderTracker() {
+            const container = document.getElementById('grid-container');
+            for(let i=1; i<=30; i++) {
+                let row = document.createElement('div');
+                row.className = 'grid-row';
+                row.innerHTML = `<div class="day-num">${i}</div>`;
+                
+                // Fasting + 5 Prayers
+                ['fast', 'fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].forEach(type => {
+                    let btn = document.createElement('div');
+                    let icon = type === 'fast' ? 'moon' : 'heart';
+                    btn.className = `icon-btn ${icon}`;
+                    
+                    let key = `day-${i}-${type}`;
+                    if(localStorage.getItem(key) === 'true') btn.classList.add('active');
+
+                    btn.onclick = function() {
+                        btn.classList.toggle('active');
+                        localStorage.setItem(key, btn.classList.contains('active'));
+                    };
+                    row.appendChild(btn);
+                });
+                container.appendChild(row);
+            }
+        }
+
+        // 4. Treasures Logic
+        const treasuresData = [
+            {title: "تقوى الله", desc: "أنا أصوم لأن الله يحب الصائمين ولأفوز بباب الريان."},
+            {title: "صحة الجسم", desc: "المعدة ترتاح، والجسم يتخلص من السموم ويصبح نشيطاً."},
+            {title: "تقوية الإرادة", desc: "الصيام يعلمني الصبر والتحكم في رغباتي."},
+            {title: "الشعور بالآخرين", desc: "عندما أجوع أتذكر الفقراء وأشكر الله على النعمة."}
+        ];
+        function renderTreasures() {
+            const list = document.getElementById('treasures-list');
+            treasuresData.forEach((t, index) => {
+                let box = document.createElement('div');
+                box.className = 'treasure-box';
+                let key = `treasure-${index}`;
+                if(localStorage.getItem(key)) box.classList.add('open');
+
+                box.innerHTML = `
+                    <div>
+                        <b>${t.title}</b>
+                        <div style="font-size:0.9rem; color:#666; margin-top:5px; display:${localStorage.getItem(key)?'block':'none'}">${t.desc}</div>
+                    </div>
+                    <span class="star-icon">★</span>
+                `;
+                box.onclick = function() {
+                    box.classList.add('open');
+                    box.querySelector('div div').style.display = 'block';
+                    box.querySelector('.star-icon').style.color = 'orange';
+                    localStorage.setItem(key, 'true');
+                };
+                list.appendChild(box);
+            });
+        }
+
+        // 5. Popup Logic
+        function showPopup(title, text) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerText = text;
+            document.getElementById('modal').style.display = 'flex';
+        }
+        function closePopup() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // 6. Audio Logic
+        function toggleAudio(audioId, btn) {
+            let audio = document.getElementById(audioId);
+            let iconSpan = btn.querySelector('span');
+            
+            if (audio.paused) {
+                // Stop other audios first
+                document.querySelectorAll('audio').forEach(a => {if(a!==audio) {a.pause(); a.currentTime=0;}});
+                document.querySelectorAll('.play-btn span').forEach(s => s.innerText = '▶'); // Reset icons
+                
+                audio.play();
+                iconSpan.innerText = '⏸'; // Change to pause icon
+            } else {
+                audio.pause();
+                iconSpan.innerText = '▶'; // Change back to play icon
+            }
+        }
+    </script>
+</body>
+</html>
